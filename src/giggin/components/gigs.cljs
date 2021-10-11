@@ -8,7 +8,8 @@
 (defn gigs
   []
   (let [modal (r/atom {:active false})
-        values (r/atom {:id nil :title "" :desc "" :price 0 :img "" :sold-out false})
+        initial-values {:id nil :title "" :desc "" :price 0 :img "" :sold-out false}
+        values (r/atom initial-values)
         add-to-order #(swap! state/orders update % inc)
         toggle-modal (fn
                        [{:keys [active gig]}]
@@ -21,15 +22,19 @@
                                                  :img (str/trim img)
                                                  :price (js/parseInt price)
                                                  :sold-out sold-out})
-                     (toggle-modal {:active false :gig {}}))]
+                     (toggle-modal {:active false :gig initial-values}))]
     [:main
      [:div.gigs
       [:button.add-gig
-       {:on-click #(toggle-modal {:active true :gig {}})}
+       {:on-click #(toggle-modal {:active true :gig initial-values})}
        [:div.add__title
         [:i.icon.icon--plus]
         [:p "Add gig"]]]
-      [gig-editor modal values upsert-gig toggle-modal]
+      [gig-editor {:modal modal
+                   :values values
+                   :upsert-gig upsert-gig
+                   :toggle-modal toggle-modal
+                   :initial-values initial-values}]
       (for [{:keys [id img title price desc] :as gig} (vals @state/gigs)]
         [:div.gig {:key id}
          [:img.gig__artwork.gig__edit {:src img
