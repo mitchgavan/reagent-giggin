@@ -4,6 +4,7 @@
             [giggin.components.footer :refer [footer]]
             [giggin.components.gigs :refer [gigs]]
             [giggin.components.orders :refer [orders]]
+            [giggin.api :as api]
             ["@chakra-ui/react" :refer [ChakraProvider]]))
 
 (defn app
@@ -17,6 +18,7 @@
 
 (defn ^:export main
   []
+  (api/fetch-gigs)
   (render
    [app]
    (.getElementById js/document "app")))
