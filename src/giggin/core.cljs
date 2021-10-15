@@ -5,6 +5,7 @@
             [giggin.components.gigs :refer [gigs]]
             [giggin.components.orders :refer [orders]]
             [giggin.api :as api]
+            [giggin.fb.init :refer [firebase-init]]
             ["@chakra-ui/react" :refer [ChakraProvider]]))
 
 (defn app
@@ -21,4 +22,5 @@
   (api/fetch-gigs)
   (render
    [app]
-   (.getElementById js/document "app")))
+   (.getElementById js/document "app"))
+  (firebase-init))
