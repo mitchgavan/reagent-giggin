@@ -1,7 +1,8 @@
 (ns giggin.components.orders
   (:require [giggin.state :as state]
             [giggin.helpers :refer [format-price]]
-            [giggin.components.checkout-modal :refer [checkout-modal]]))
+            [giggin.components.checkout-modal :refer [checkout-modal]]
+            [giggin.components.admin-panel :refer [admin-panel]]))
 
 ;; without thread first macro (aka pipe)
 ;; (defn total
@@ -19,6 +20,7 @@
   (let [remove-from-order #(swap! state/orders dissoc %)
         remove-all-orders #(reset! state/orders {})]
     [:aside
+     [admin-panel]
      (if (empty? @state/orders)
        [:div.empty
         [:div.title "You don't have any orders"]

@@ -1,9 +1,12 @@
 /node_modules
 /target
 /public/js
-/.clj-kondo
+.clj-kondo
 .shadow-cljs
 .nrepl-port
+.lsp
 yarn.lock
 package-lock.json
 .DS_Store
+env
+
